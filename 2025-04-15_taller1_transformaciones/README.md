@@ -18,7 +18,7 @@ Este repositorio contiene tres implementaciones que demuestran el uso de **trans
 
 ### `App.jsx`
 - Escena WebGL creada con `@react-three/fiber` y `@react-three/drei`.
-- Renderiza un cubo 3D animado que:
+- Renderiza una esfera 3D animada que:
   - Se traslada en trayectoria circular.
   - Rota continuamente en `x` e `y`.
   - Se escala con `Math.sin(clock.elapsedTime)` para dar efecto pulsante.
@@ -34,5 +34,12 @@ Este repositorio contiene tres implementaciones que demuestran el uso de **trans
 - Aplica **traslación**, **rotación**, y **escala** mediante matrices de transformación.
 - Genera una animación interpolada en el tiempo usando bucles.
 - Exporta el resultado como GIF animado.
+
+---
+
+## EXTRA. Exposición semana 2
+
+### `Simuladores quirúrgicos con realidad virtual`
+- El aporte de la exposición fueron los ejemplos de simulaciones con inteligencia artificial en la actualidad, la descripción de estos ejemplos y los beneficios que trae la simulación quirúrgica en la educación médica
 
 ---

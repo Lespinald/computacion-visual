@@ -3,7 +3,7 @@ import { OrbitControls } from '@react-three/drei'
 import { useRef } from 'react'
 import * as THREE from 'three'
 
-function AnimatedCube() {
+function AnimatedSphere() {
   const meshRef = useRef()
   const clock = new THREE.Clock()
 
@@ -26,7 +26,7 @@ function AnimatedCube() {
 
   return (
     <mesh ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
+      <sphereGeometry args={[2, 16, 16]} />
       <meshStandardMaterial color="royalblue" />
     </mesh>
   )
@@ -34,10 +34,10 @@ function AnimatedCube() {
 
 export default function App() {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+    <Canvas camera={{ position: [100, 100, 5], fov: 1060 }}>
       <ambientLight intensity={0.5} />
       <directionalLight position={[3, 3, 3]} intensity={1} />
-      <AnimatedCube />
+      <AnimatedSphere />
       <OrbitControls />
     </Canvas>
   )
