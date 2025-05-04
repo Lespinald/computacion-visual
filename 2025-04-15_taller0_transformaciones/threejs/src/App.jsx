@@ -15,13 +15,13 @@ function AnimatedSphere() {
     meshRef.current.rotation.x += 0.01
     meshRef.current.rotation.y += 0.01
 
-    const scale = 1 + 0.3 * Math.sin(t * 2)
+    const scale = 1 + 0.3 * Math.sin(t*2)
     meshRef.current.scale.set(scale, scale, scale)
   })
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[2, 32, 32]} />
+      <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial color="royalblue" />
     </mesh>
   )
@@ -29,12 +29,15 @@ function AnimatedSphere() {
 
 export default function App() {
   return (
-    <Canvas camera={{ position: [5, 5, 5], fov: 50 }}>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[3, 3, 3]} intensity={1} />
-      <AnimatedSphere />
-      <OrbitControls />
-    </Canvas>
+    <div id="canvas-container" style={{ width: "100vw", height: "100vh" }}>
+      <Canvas>
+        <ambientLight intensity={0.4}/>
+        <directionalLight position={[0, 0.5, 1]} intensity={1}/>
+        <directionalLight position={[0, 1, 0]} intensity={1}/>
+        <AnimatedSphere/>
+        <OrbitControls makeDefault/>
+      </Canvas>
+    </div>
   )
 }
 

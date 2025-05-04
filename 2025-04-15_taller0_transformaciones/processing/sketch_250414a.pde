@@ -17,16 +17,16 @@ void draw() {
   float angleX = t;
   float angleY = t * 0.7;
 
-  // Escala dinámica
+  // Dynamic scale
   float scaleFactor = 1 + 0.9 * sin(t * 1.5);
 
-  // Centrar
+  // Center
   translate(width/2, height/2, 0);
 
-  // Transformaciones
+  // PushMatrix
   pushMatrix();
   
-  translate(tx, ty, 0);   // Traslación en forma de infinito
+  translate(tx, ty, 0);
   rotateX(angleX);
   rotateY(angleY);
   scale(scaleFactor);
