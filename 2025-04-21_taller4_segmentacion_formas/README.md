@@ -1,22 +1,23 @@
-# 🧪 Taller 4 segmentación formas
+# 🧪 Taller Segmentando el Mundo: Binarización y Reconocimiento de Formas
 
 ## 📅 Fecha
-`2025-05-05` – Fecha de entrega 
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Aplicar técnicas básicas de segmentación en imágenes mediante umbralización y detección de formas simples. El objetivo es comprender cómo identificar regiones de interés en imágenes mediante procesos de binarización y análisis morfológico.
 
-Describe brevemente el objetivo del taller: ¿qué se pretende explorar, aplicar o construir?
+Este repositorio contiene una implementación que demuestran el uso de **segmentación de imagenes** en colab.
 
 ---
 
 ## 🧠 Conceptos Aprendidos
 
-Lista los principales conceptos aplicados:
+Principales conceptos aplicados:
 
 - [ ] Transformaciones geométricas (escala, rotación, traslación)
-- [ ] Segmentación de imágenes
+- [X] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
 - [ ] Comunicación por gestos o voz
@@ -26,34 +27,15 @@ Lista los principales conceptos aplicados:
 
 ## 🔧 Herramientas y Entornos
 
-Especifica los entornos usados:
+Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
-📌 Usa las herramientas según la [guía de instalación oficial](./guia_instalacion_entornos_visual.md)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-YYYY-MM-DD_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
-
-📎 Sigue la estructura de entregas descrita en la [guía GitLab](./guia_gitlab_computacion_visual.md)
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -66,74 +48,39 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
-```
+# Draw contour
+cv2.drawContours(output, [cnt], -1, (0, 255, 0), 2)
 
----
+# Moments and center of mass
+M = cv2.moments(cnt)
+if M["m00"] != 0:
+  cx = int(M["m10"] / M["m00"])
+  cy = int(M["m01"] / M["m00"])
+  cv2.circle(output, (cx, cy), 4, (0, 0, 255), -1)
+
+# Bounding box
+x, y, w, h = cv2.boundingRect(cnt)
+cv2.rectangle(output, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+# Metrics
+area = cv2.contourArea(cnt)
+perimeter = cv2.arcLength(cnt, True)
+total_area += area
+total_perimeter += perimeter
+
+# Convert BGR to RGB for display with matplotlib
+output_rgb = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
+return output_rgb
+```
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![deteccion](./resultados/deteccion_colores_rojo_verde_torres.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
-## 🧩 Prompts Usados
-
-Enumera los prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
-
-📎 Usa buenas prácticas de prompts según la [guía de IA actualizada](./guia_prompts_inteligencias_artificiales_actualizada.md)
-
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](slynerd.jpg)
+![](thressholddots.png)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `YYYY-MM-DD_nombre_taller`
+- [x] Carpeta `2025-04-21_taller4_segmentación_formas`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas

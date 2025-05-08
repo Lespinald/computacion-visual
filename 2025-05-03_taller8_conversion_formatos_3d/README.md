@@ -1,59 +1,42 @@
-# 🧪 Taller 8 conversión formatos 3d
+# 🧪 Taller Importando el Mundo: Visualización y Conversión de Formatos 3D
 
 ## 📅 Fecha
-`2025-05-05` – Fecha de entrega
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Comparar y convertir entre distintos formatos de modelos 3D: .OBJ, .STL y .GLTF, y visualizar sus diferencias en geometría y materiales. El objetivo es entender la estructura interna de los archivos 3D, su compatibilidad entre entornos, y cómo se interpretan en distintas plataformas de visualización.
 
-Describe brevemente el objetivo del taller: ¿qué se pretende explorar, aplicar o construir?
+Este repositorio contiene dos implementaciones que demuestran el uso de **entornos para estructuras 3d** en distintos entornos.
 
 ---
 
 ## 🧠 Conceptos Aprendidos
 
-Lista los principales conceptos aplicados:
+Principales conceptos aplicados:
 
-- [ ] Transformaciones geométricas (escala, rotación, traslación)
+- [X] Transformaciones geométricas (escala, rotación, traslación)
 - [ ] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
 - [ ] Comunicación por gestos o voz
-- [ ] Otro: _______________________
+- [X] Otro: Entornos
 
 ---
 
 ## 🔧 Herramientas y Entornos
 
-Especifica los entornos usados:
+Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
-📌 Usa las herramientas según la [guía de instalación oficial](./guia_instalacion_entornos_visual.md)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-YYYY-MM-DD_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
-
-📎 Sigue la estructura de entregas descrita en la [guía GitLab](./guia_gitlab_computacion_visual.md)
+Three.js / React Three Fiber
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -66,74 +49,41 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
+# Convertions to save OBJ as STL and GLTF
+mesh = meshes['OBJ']
+mesh.export('converted_model_stl.stl')
+mesh.export('converted_model_glft.gltf')
+mesh.export('converted_model_glb.glb')  # or .stl, .gltf, .ply
 ```
-
+```javascript
+// Show enviroment with canvas
+    <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} />
+        <OrbitControls enableZoom={true} autoRotate autoRotateSpeed={2} />
+        <Suspense fallback={null}>
+          {activeModel === 'horse' && <Horse scale={22} position={[0, -1, 0]} />}
+          {activeModel === 'cat' && <CatModel scale={0.05} position={[0, -1, 0]} />}
+          {activeModel === 'stl' && <STLModel scale={0.05} position={[0, -1, 0]} />}
+        </Suspense>
+        <Environment preset="sunset" />
+      </Canvas>
+```
 ---
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![deteccion](./resultados/deteccion_colores_rojo_verde_torres.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
-## 🧩 Prompts Usados
-
-Enumera los prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
-
-📎 Usa buenas prácticas de prompts según la [guía de IA actualizada](./guia_prompts_inteligencias_artificiales_actualizada.md)
-
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](taller8agif.gif)
+![](taller8bgif.gif)
+![](dogobj.png)
+![](dogstl.png)
+![](dogglb.png)
+![](duckstl.png)
+![](catglb.png)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `YYYY-MM-DD_nombre_taller`
+- [x] Carpeta `2025-04-21_taller8_conversion_formatos_3d`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas

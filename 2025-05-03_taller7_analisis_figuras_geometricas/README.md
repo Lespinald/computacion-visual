@@ -1,22 +1,23 @@
-# 🧪 Taller 7 análisis figuras geométricas
+# 🧪 Taller Análisis de Figuras Geométricas: Centroide, Área y Perímetro
 
 ## 📅 Fecha
-`2025-05-05` – Fecha de entrega
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Detectar formas simples (círculos, cuadrados, triángulos) en imágenes binarizadas y calcular propiedades geométricas como área, perímetro y centroide. El objetivo es desarrollar habilidades para extraer métricas relevantes de contornos detectados en imágenes procesadas.
 
-Describe brevemente el objetivo del taller: ¿qué se pretende explorar, aplicar o construir?
+Este repositorio contiene una implementación que demuestran el uso de **propiedades geométricas** en colab.
 
 ---
 
 ## 🧠 Conceptos Aprendidos
 
-Lista los principales conceptos aplicados:
+Principales conceptos aplicados:
 
 - [ ] Transformaciones geométricas (escala, rotación, traslación)
-- [ ] Segmentación de imágenes
+- [X] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
 - [ ] Comunicación por gestos o voz
@@ -26,34 +27,15 @@ Lista los principales conceptos aplicados:
 
 ## 🔧 Herramientas y Entornos
 
-Especifica los entornos usados:
+Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
-📌 Usa las herramientas según la [guía de instalación oficial](./guia_instalacion_entornos_visual.md)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-YYYY-MM-DD_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
-
-📎 Sigue la estructura de entregas descrita en la [guía GitLab](./guia_gitlab_computacion_visual.md)
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -66,74 +48,32 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
-```
+# Find contours
+contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
----
+# Moments and centroid
+M = cv2.moments(cnt)
+if M["m00"] != 0:
+    cx = int(M["m10"] / M["m00"])
+    cy = int(M["m01"] / M["m00"])
+else:
+    cx, cy = 0, 0
+
+text = f"A:{int(area)} P:{int(perimeter)} C:({cx},{cy})"
+cv2.putText(output, text, (cx + 5, cy - 10), cv2.FONT_HERSHEY_SIMPLEX, 
+          0.6, (255, 0, 0), 1, cv2.LINE_AA)
+
+# Mark centroid
+cv2.circle(output, (cx, cy), 3, (0, 0, 255), -1)
+```
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![deteccion](./resultados/deteccion_colores_rojo_verde_torres.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
-## 🧩 Prompts Usados
-
-Enumera los prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
-
-📎 Usa buenas prácticas de prompts según la [guía de IA actualizada](./guia_prompts_inteligencias_artificiales_actualizada.md)
-
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](cont7.png)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `YYYY-MM-DD_nombre_taller`
+- [x] Carpeta `2025-05-03_taller7_analisis_figuras_eometricas`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas

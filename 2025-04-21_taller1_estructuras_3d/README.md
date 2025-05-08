@@ -1,13 +1,14 @@
-# 🧪 Nombre del Taller
+# 🧪 Taller Construyendo Mundo 3D
 
 ## 📅 Fecha
-`2025-04-21` – Fecha de entrega o realización
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Comprender las estructuras gráficas básicas que forman los modelos 3D (mallas poligonales) y visualizar su estructura en distintas plataformas. Se explorará la diferencia entre vértice, arista y cara, así como el contenido de formatos de archivo estándar de malla como .OBJ, .STL y .GLTF.
 
-Este repositorio contiene tres implementaciones que demuestran el uso de **estructuras 3d** en distintos entornos.
+Este repositorio contiene dos implementaciones que demuestran el uso de **estructuras 3d** en distintos entornos.
 
 ---
 
@@ -15,7 +16,7 @@ Este repositorio contiene tres implementaciones que demuestran el uso de **estru
 
 Principales conceptos aplicados:
 
-- [ ] Transformaciones geométricas (escala, rotación, traslación)
+- [X] Transformaciones geométricas (escala, rotación, traslación)
 - [ ] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
@@ -28,28 +29,14 @@ Principales conceptos aplicados:
 
 Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-2025-04-21_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
+Three.js / React Three Fiber
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -62,65 +49,44 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
-```
 
+# Loading a file with trimesh
+def load_model(path):
+    mesh = trimesh.load_mesh(path)
+    vertices = mesh.vertices
+    faces = mesh.faces
+
+    # Delete double edges
+    unique_edges = set(frozenset(edge) for edge in mesh.edges)
+    edges = np.array([list(e) for e in unique_edges])
+    return vertices, edges, faces
+```
+```javascript
+
+//Load model
+import Earth from '../public/Earth'
+
+// Show model with canvas
+    <Canvas camera={{ position: [0, 2, 5], fov: 50 }}>
+      <OrbitControls enableZoom={false}/>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} />
+      <Suspense fallback={null}>
+        <Earth />
+      </Suspense>
+      <Environment preset='sunset' />
+    </Canvas>
+```
 ---
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
----
-
-## 🧩 Prompts Usados
-
-Prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](cat3d.png)
+![](taller1gif.gif)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `2025-04-28_nombre_taller`
+- [x] Carpeta `2025-04-21_taller1_estructuras_3d`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas

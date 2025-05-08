@@ -1,22 +1,23 @@
-# 🧪 Taller 5 imagen matriz pixeles
+# 🧪 Taller de Pixeles a Coordenadas: Explorando la Imagen como Matriz
 
 ## 📅 Fecha
-`2025-05-05` – Fecha de entrega
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Comprender cómo se representa una imagen digital como una matriz numérica y manipular sus componentes a nivel de píxel. Se abordará cómo trabajar con los valores de color y brillo directamente, accediendo a regiones específicas de la imagen para su análisis o modificación.
 
-Describe brevemente el objetivo del taller: ¿qué se pretende explorar, aplicar o construir?
+Este repositorio contiene una implementación que demuestran el uso de **edición directa de imagen** en colab.
 
 ---
 
 ## 🧠 Conceptos Aprendidos
 
-Lista los principales conceptos aplicados:
+Principales conceptos aplicados:
 
 - [ ] Transformaciones geométricas (escala, rotación, traslación)
-- [ ] Segmentación de imágenes
+- [X] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
 - [ ] Comunicación por gestos o voz
@@ -26,34 +27,15 @@ Lista los principales conceptos aplicados:
 
 ## 🔧 Herramientas y Entornos
 
-Especifica los entornos usados:
+Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
-📌 Usa las herramientas según la [guía de instalación oficial](./guia_instalacion_entornos_visual.md)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-YYYY-MM-DD_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
-
-📎 Sigue la estructura de entregas descrita en la [guía GitLab](./guia_gitlab_computacion_visual.md)
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -66,74 +48,23 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
-```
+# RGB 
+r, g, b = cv2.split(image_rgb)
 
----
+# HSV 
+image_hsv = cv2.cvtColor(uploaded, cv2.COLOR_BGR2HSV)
+h, s, v = cv2.split(image_hsv)
+```
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![deteccion](./resultados/deteccion_colores_rojo_verde_torres.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
-## 🧩 Prompts Usados
-
-Enumera los prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
-
-📎 Usa buenas prácticas de prompts según la [guía de IA actualizada](./guia_prompts_inteligencias_artificiales_actualizada.md)
-
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](meowver1.png)
+![](pixie1.png)
+![](pixie2.png)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `YYYY-MM-DD_nombre_taller`
+- [x] Carpeta `2025-04-21_taller5_imagen_matrix_pixeles`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas

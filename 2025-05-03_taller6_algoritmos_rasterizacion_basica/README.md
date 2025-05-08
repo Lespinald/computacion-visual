@@ -1,22 +1,23 @@
-# 🧪 Taller 6 algoritmos rasterización básica
+# 🧪 Taller Rasterización desde Cero: Dibujando con Algoritmos Clásicos
 
 ## 📅 Fecha
-`2025-05-05` – Fecha de entrega
+`2025-05-07` – Fecha de entrega
 
 ---
 
 ## 🎯 Objetivo del Taller
+Comprender e implementar los algoritmos clásicos de rasterización para líneas, círculos y triángulos, entendiendo cómo se construyen imágenes píxel a píxel en una pantalla. El objetivo es desarrollar una base sólida sobre cómo se generan primitivas gráficas sin usar librerías de alto nivel.
 
-Describe brevemente el objetivo del taller: ¿qué se pretende explorar, aplicar o construir?
+Este repositorio contiene una implementación que demuestran el uso de **rasterización básica** en colab.
 
 ---
 
 ## 🧠 Conceptos Aprendidos
 
-Lista los principales conceptos aplicados:
+Principales conceptos aplicados:
 
 - [ ] Transformaciones geométricas (escala, rotación, traslación)
-- [ ] Segmentación de imágenes
+- [X] Segmentación de imágenes
 - [ ] Shaders y efectos visuales
 - [ ] Entrenamiento de modelos IA
 - [ ] Comunicación por gestos o voz
@@ -26,34 +27,15 @@ Lista los principales conceptos aplicados:
 
 ## 🔧 Herramientas y Entornos
 
-Especifica los entornos usados:
+Entornos usados:
 
-- Python (`opencv-python`, `torch`, `mediapipe`, `diffusers`, etc.)
-- Unity (versión LTS, XR Toolkit, Shader Graph)
-- Three.js / React Three Fiber
-- Jupyter / Google Colab
-
-📌 Usa las herramientas según la [guía de instalación oficial](./guia_instalacion_entornos_visual.md)
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-YYYY-MM-DD_nombre_taller/
-├── entorno/               # python/, unity/, threejs/, colab/
-├── datos/                 # imágenes, audio, modelos, video
-├── resultados/            # capturas, métricas, gifs
-├── README.md
-```
-
-📎 Sigue la estructura de entregas descrita en la [guía GitLab](./guia_gitlab_computacion_visual.md)
+Jupyter / Google Colab
 
 ---
 
 ## 🧪 Implementación
 
-Explica el proceso:
+Proceso:
 
 ### 🔹 Etapas realizadas
 1. Preparación de datos o escena.
@@ -66,74 +48,73 @@ Explica el proceso:
 Incluye un fragmento que resuma el corazón del taller:
 
 ```python
-# Segmentación semántica con DeepLab
-output = model(input_tensor)['out']
-prediction = output.argmax(1).squeeze().cpu().numpy()
-```
+# Line Beresenham algorithm
+def bresenham(x0, y0, x1, y1):
+    dx = abs(x1 - x0)
+    dy = abs(y1 - y0)
+    sx = 1 if x0 < x1 else -1
+    sy = 1 if y0 < y1 else -1
+    err = dx - dy
 
----
+    while True:
+        pixels[x0, y0] = (255, 0, 0)
+        if x0 == x1 and y0 == y1:
+            break
+        e2 = 2 * err
+        if e2 > -dy:
+            err -= dy
+            x0 += sx
+        if e2 < dx:
+            err += dx
+            y0 += sy
+
+# Circle algorithm
+def midpoint_circle(a0, yb0, radius):
+    x = radius
+    y = 0
+    p = 1 - radius
+
+    while x >= y:
+        for dx, dy in [(x, y), (y, x), (-x, y), (-y, x), (-x, -y), (-y, -x), (x, -y), (y, -x)]:
+            if 0 <= x0 + dx < width and 0 <= y0 + dy < height:
+                pixels[x0 + dx, y0 + dy] = (0, 0, 255)
+        y += 1
+        if p <= 0:
+            p = p + 2*y + 1
+        else:
+            x -= 1
+            p = p + 2*y - 2*x + 1
+
+# Triangle algorithm
+def fill_triangle(p1, p2, p3):
+    # ordenar por y
+    pts = sorted([p1, p2, p3], key=lambda p: p[1])
+    (x1, y1), (x2, y2), (x3, y3) = pts
+
+    def interpolate(y0, y1, x0, x1):
+        if y1 - y0 == 0: return []
+        return [int(x0 + (x1 - x0) * (y - y0) / (y1 - y0)) for y in range(y0, y1)]
+
+    x12 = interpolate(y1, y2, x1, x2)
+    x23 = interpolate(y2, y3, x2, x3)
+    x13 = interpolate(y1, y3, x1, x3)
+
+    x_left = x12 + x23
+    for y, xl, xr in zip(range(y1, y3), x13, x_left):
+        for x in range(min(xl, xr), max(xl, xr)):
+            if 0 <= x < width and 0 <= y < height:
+                pixels[x, y] = (0, 255, 0)
+```
 
 ## 📊 Resultados Visuales
 
-### 📌 Este taller **requiere explícitamente un GIF animado**:
-
-> ✅ Si tu taller lo indica, debes incluir **al menos un GIF** mostrando la ejecución o interacción.
-
-- Usa `Peek`, `ScreenToGif`, `OBS`, o desde Python (`imageio`) para generar el GIF.
-- **El nombre del GIF debe ser descriptivo del punto que estás presentando.**
-- Ejemplo correcto:  
-  `deteccion_colores_rojo_verde_torres.gif`  
-  `movimiento_robot_esquiva_obstaculos_gomez.gif`  
-  `shader_gradiente_temporal_lopez.gif`
-
-🧭 [Ver guía para crear GIFs](./guia_generar_gif.md)
-
-```markdown
-![deteccion](./resultados/deteccion_colores_rojo_verde_torres.gif)
-```
-
-> ❌ No se aceptará la entrega si falta el GIF en talleres que lo requieren.
-
----
-
-## 🧩 Prompts Usados
-
-Enumera los prompts utilizados:
-
-```text
-"Create a photorealistic image of a robot painting a mural using Stable Diffusion"
-"Segment a car and a person using SAM at point (200, 300)"
-```
-
-📎 Usa buenas prácticas de prompts según la [guía de IA actualizada](./guia_prompts_inteligencias_artificiales_actualizada.md)
-
----
-
-## 💬 Reflexión Final
-
-Responde en 2-3 párrafos:
-
-- ¿Qué aprendiste o reforzaste con este taller?
-- ¿Qué parte fue más compleja o interesante?
-- ¿Qué mejorarías o qué aplicarías en futuros proyectos?
-
----
-
-## 👥 Contribuciones Grupales (si aplica)
-
-Describe exactamente lo que hiciste tú:
-
-```markdown
-- Programé el detector de postura en MediaPipe
-- Generé los GIFs y documentación
-- Integré el control de voz con visualización en Unity
-```
-
----
+![](resultados/circulo.png)
+![](resultados/linea.png)
+![](resultados/triangulo.png)
 
 ## ✅ Checklist de Entrega
 
-- [x] Carpeta `YYYY-MM-DD_nombre_taller`
+- [x] Carpeta `2025-05-03_taller6_algoritmos_rasterizacion_basica`
 - [x] Código limpio y funcional
 - [x] GIF incluido con nombre descriptivo (si el taller lo requiere)
 - [x] Visualizaciones o métricas exportadas
