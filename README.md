@@ -2,7 +2,8 @@
 
 ---
 
-## 🧊 Estudiante Lina Sofía Espinal Daza
-## 🧊 Docente
-## 🧊 Monitor
-## 🧊 Grupo virtual lunes y miercoles
+### 🧊 Estudiante Lina Sofía Espinal Daza
+### 🧊 Docente Arbey Aragon Bohorquez
+### 🧊 Grupo virtual lunes y miercoles
+
+---
