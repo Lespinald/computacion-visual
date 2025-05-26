@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.27.1",
+    "babel-plugin-glsl": "^1.0.0"
+  }
+}
