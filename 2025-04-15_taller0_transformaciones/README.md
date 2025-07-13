@@ -1,4 +1,4 @@
-# ATaller Transformaciones
+# Taller Transformaciones
 
 Este repositorio contiene tres implementaciones que demuestran el uso de **transformaciones geométricas animadas** en distintos entornos: **Processing, React Three Fiber (3D con WebGL), y Python (2D con matplotlib y imageio)**.
 
